@@ -43,12 +43,12 @@ const About = () => {
 
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-red-500 mb-2">3+</div>
-                <div className="text-slate-300">Years Experience</div>
+                <div className="text-3xl font-bold text-red-500 mb-2">Practical Training</div>
+                <div className="text-slate-300">in Full-Stack Development</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-red-500 mb-2">50+</div>
-                <div className="text-slate-300">Projects Completed</div>
+                <div className="text-3xl font-bold text-red-500 mb-2">Major Academic</div>
+                <div className="text-slate-300">Projects Successfully Completed</div>
               </div>
             </div>
           </div>
