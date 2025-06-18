@@ -93,9 +93,11 @@ const Hero = () => {
                 {/* Profile Picture */}
                 <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 p-1">
                   <div className="w-full h-full rounded-2xl bg-slate-800 flex items-center justify-center overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl flex items-center justify-center">
-                      <div className="text-white text-6xl font-bold">ST</div>
-                    </div>
+                    <img 
+                      src="https://i.postimg.cc/wjg99cVz/Whats-App-Image-2025-02-08-at-00-31-28-18f8e700.jpg"
+                      alt="Shanu Thakur"
+                      className="w-full h-full object-cover rounded-2xl"
+                    />
                   </div>
                 </div>
               </div>
@@ -127,22 +129,24 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        .delay-500 {
-          animation-delay: 0.5s;
-        }
-        .delay-1000 {
-          animation-delay: 1s;
-        }
-      `}</style>
+      {/* Custom CSS for animations */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+          }
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+          .delay-500 {
+            animation-delay: 0.5s;
+          }
+          .delay-1000 {
+            animation-delay: 1s;
+          }
+        `
+      }} />
     </section>
   );
 };
