@@ -14,24 +14,27 @@ const Index = () => {
     const sections = document.querySelectorAll('section');
     
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
+        const element = entry.target as HTMLElement;
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-          entry.target.style.transform = 'translateY(0) rotateX(0)';
-          entry.target.style.opacity = '1';
+          element.classList.add('animate-fade-in');
+          element.style.transform = 'translateY(0) rotateX(0) scale(1)';
+          element.style.opacity = '1';
         }
       });
     }, observerOptions);
 
     sections.forEach((section) => {
-      section.style.transform = 'translateY(50px) rotateX(-5deg)';
-      section.style.opacity = '0';
-      section.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      const element = section as HTMLElement;
+      element.style.transform = 'translateY(80px) rotateX(-8deg) scale(0.95)';
+      element.style.opacity = '0';
+      element.style.transition = 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+      element.style.transformStyle = 'preserve-3d';
       observer.observe(section);
     });
 

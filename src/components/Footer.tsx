@@ -7,7 +7,7 @@ const Footer = () => {
   };
 
   const handleGitHubClick = () => {
-    window.open('https://github.com/yourusername', '_blank'); // Replace with your actual GitHub URL
+    window.open('https://github.com/Shanuthakur01', '_blank');
   };
 
   return (

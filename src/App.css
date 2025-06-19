@@ -42,24 +42,24 @@
   color: #888;
 }
 
-/* 3D Scroll Effects */
+/* Enhanced 3D Scroll Effects */
 .section-3d {
-  perspective: 1000px;
+  perspective: 1200px;
   transform-style: preserve-3d;
 }
 
 .animate-fade-in {
-  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(50px) rotateX(-5deg);
+    transform: translateY(80px) rotateX(-8deg) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0) rotateX(0);
+    transform: translateY(0) rotateX(0) scale(1);
   }
 }
 
@@ -72,5 +72,16 @@ html {
 .transform-gpu {
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced hover effects */
+.hover-3d {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.hover-3d:hover {
+  transform: translateY(-10px) rotateY(5deg) scale(1.02);
 }
