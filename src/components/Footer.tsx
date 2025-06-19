@@ -2,6 +2,14 @@
 import { Github, Mail } from 'lucide-react';
 
 const Footer = () => {
+  const handleEmailClick = () => {
+    window.open('mailto:bt075590@gmail.com', '_blank');
+  };
+
+  const handleGitHubClick = () => {
+    window.open('https://github.com/yourusername', '_blank'); // Replace with your actual GitHub URL
+  };
+
   return (
     <footer className="bg-slate-900 border-t border-slate-800 py-12">
       <div className="container mx-auto px-6">
@@ -14,18 +22,18 @@ const Footer = () => {
           </div>
           
           <div className="flex space-x-6">
-            <a
-              href="mailto:bt075590@gmail.com"
+            <button
+              onClick={handleEmailClick}
               className="bg-slate-800 hover:bg-red-500 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-110"
             >
               <Mail size={20} />
-            </a>
-            <a
-              href="#"
+            </button>
+            <button
+              onClick={handleGitHubClick}
               className="bg-slate-800 hover:bg-red-500 text-white p-3 rounded-lg transition-all duration-300 transform hover:scale-110"
             >
               <Github size={20} />
-            </a>
+            </button>
           </div>
         </div>
         

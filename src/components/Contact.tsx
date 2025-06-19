@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Mail, Github } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -61,8 +62,16 @@ const Contact = () => {
     }
   };
 
+  const handleEmailClick = () => {
+    window.open('mailto:bt075590@gmail.com', '_blank');
+  };
+
+  const handleGitHubClick = () => {
+    window.open('https://github.com/yourusername', '_blank'); // Replace with your actual GitHub URL
+  };
+
   return (
-    <section id="contact" className="py-20 bg-slate-800">
+    <section id="contact" className="py-20 bg-slate-800 transform-gpu">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">Get In Touch</h2>
@@ -78,9 +87,12 @@ const Contact = () => {
             
             <div className="space-y-6">
               <div className="flex items-center">
-                <div className="bg-red-500 rounded-lg p-3 mr-4">
+                <button 
+                  onClick={handleEmailClick}
+                  className="bg-red-500 rounded-lg p-3 mr-4 hover:bg-red-600 transition-colors duration-300 transform hover:scale-105"
+                >
                   <Mail className="text-white" size={24} />
-                </div>
+                </button>
                 <div>
                   <h4 className="text-white font-semibold">Email</h4>
                   <p className="text-slate-400">bt075590@gmail.com</p>
@@ -98,9 +110,12 @@ const Contact = () => {
               </div>
               
               <div className="flex items-center">
-                <div className="bg-red-500 rounded-lg p-3 mr-4">
+                <button 
+                  onClick={handleGitHubClick}
+                  className="bg-red-500 rounded-lg p-3 mr-4 hover:bg-red-600 transition-colors duration-300 transform hover:scale-105"
+                >
                   <Github className="text-white" size={24} />
-                </div>
+                </button>
                 <div>
                   <h4 className="text-white font-semibold">GitHub</h4>
                   <p className="text-slate-400">GitHub Profile Link</p>
