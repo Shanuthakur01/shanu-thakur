@@ -1,5 +1,6 @@
 
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -14,8 +15,8 @@ const Index = () => {
     const sections = document.querySelectorAll('section');
     
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -31,9 +32,9 @@ const Index = () => {
 
     sections.forEach((section) => {
       const element = section as HTMLElement;
-      element.style.transform = 'translateY(80px) rotateX(-8deg) scale(0.95)';
+      element.style.transform = 'translateY(60px) rotateX(-5deg) scale(0.98)';
       element.style.opacity = '0';
-      element.style.transition = 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+      element.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
       element.style.transformStyle = 'preserve-3d';
       observer.observe(section);
     });
@@ -46,16 +47,70 @@ const Index = () => {
     };
   }, []);
 
+  const sectionVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      rotateX: -10,
+      scale: 0.95
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      rotateX: 0,
+      scale: 1,
+      transition: { 
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-slate-900 overflow-x-hidden transition-colors duration-300">
       <Header />
       <div className="transform-gpu">
         <Hero />
-        <About />
-        <Services />
-        <Skills />
-        <Portfolio />
-        <Contact />
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <About />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <Services />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <Skills />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <Portfolio />
+        </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={sectionVariants}
+        >
+          <Contact />
+        </motion.div>
       </div>
       <Footer />
     </div>
