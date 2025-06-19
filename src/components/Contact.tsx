@@ -1,10 +1,17 @@
 
 import { useState } from 'react';
-import { Mail, Github } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Mail, Github, Phone, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import emailjs from '@emailjs/browser';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface FormData {
   name: string;
@@ -14,6 +21,7 @@ interface FormData {
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
 
@@ -40,6 +48,7 @@ const Contact = () => {
       });
 
       reset();
+      setIsModalOpen(false);
     } catch (error) {
       console.error('EmailJS Error:', error);
       
@@ -76,6 +85,33 @@ const Contact = () => {
     visible: { opacity: 1, y: 0 }
   };
 
+  const contactItems = [
+    {
+      icon: Mail,
+      title: "Email",
+      value: "bt075590@gmail.com",
+      action: handleEmailClick
+    },
+    {
+      icon: Phone,
+      title: "Phone",
+      value: "9301545353",
+      action: () => {}
+    },
+    {
+      icon: Github,
+      title: "GitHub",
+      value: "github.com/Shanuthakur01",
+      action: handleGitHubClick
+    },
+    {
+      icon: MapPin,
+      title: "Location",
+      value: "India",
+      action: () => {}
+    }
+  ];
+
   return (
     <section id="contact" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300">
       <div className="container mx-auto px-6">
@@ -101,157 +137,164 @@ const Contact = () => {
           viewport={{ once: true }}
         >
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Let's Connect</h3>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Contact Information</h3>
             
-            <div className="space-y-6">
-              <motion.div 
-                className="flex items-center group"
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.button 
-                  onClick={handleEmailClick}
-                  className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-3 mr-4 hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+            <div className="grid sm:grid-cols-2 gap-6">
+              {contactItems.map((item, index) => (
+                <motion.div 
+                  key={index}
+                  className="group bg-white dark:bg-slate-700 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  onClick={item.action}
                 >
-                  <Mail className="text-white" size={24} />
-                </motion.button>
-                <div>
-                  <h4 className="text-slate-900 dark:text-white font-semibold group-hover:text-red-500 transition-colors duration-300">Email</h4>
-                  <p className="text-slate-600 dark:text-slate-400">bt075590@gmail.com</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="flex items-center group"
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-3 mr-4 shadow-lg">
-                  <span className="text-white text-xl">📱</span>
-                </div>
-                <div>
-                  <h4 className="text-slate-900 dark:text-white font-semibold group-hover:text-red-500 transition-colors duration-300">Phone</h4>
-                  <p className="text-slate-600 dark:text-slate-400">9301545353</p>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                className="flex items-center group"
-                whileHover={{ x: 10 }}
-                transition={{ duration: 0.2 }}
-              >
-                <motion.button 
-                  onClick={handleGitHubClick}
-                  className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-3 mr-4 hover:from-red-600 hover:to-red-700 transition-all duration-300 shadow-lg"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <Github className="text-white" size={24} />
-                </motion.button>
-                <div>
-                  <h4 className="text-slate-900 dark:text-white font-semibold group-hover:text-red-500 transition-colors duration-300">GitHub</h4>
-                  <p className="text-slate-600 dark:text-slate-400">github.com/Shanuthakur01</p>
-                </div>
-              </motion.div>
+                  <div className="flex items-center mb-4">
+                    <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-3 mr-4">
+                      <item.icon className="text-white" size={24} />
+                    </div>
+                    <h4 className="text-slate-900 dark:text-white font-semibold group-hover:text-red-500 transition-colors duration-300">
+                      {item.title}
+                    </h4>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">{item.value}</p>
+                </motion.div>
+              ))}
             </div>
 
             <motion.div 
-              className="mt-8 p-6 bg-white dark:bg-slate-700 rounded-lg shadow-lg"
+              className="mt-8 p-6 bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-700 dark:to-slate-600 rounded-xl shadow-lg"
               variants={itemVariants}
               whileHover={{ scale: 1.02 }}
             >
               <h4 className="text-slate-900 dark:text-white font-semibold mb-4">Currently Available For</h4>
-              <ul className="text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• Full-time opportunities</li>
-                <li>• Freelance projects</li>
-                <li>• Collaboration on open source</li>
-                <li>• Mentoring and consulting</li>
-              </ul>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                {["Full-time opportunities", "Freelance projects", "Collaboration on open source", "Mentoring and consulting"].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="flex items-center text-slate-600 dark:text-slate-300"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                    {item}
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Send Message</h3>
-            
-            <motion.form 
-              onSubmit={handleSubmit(onSubmit)} 
-              className="space-y-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <input
-                  {...register("name", { required: "Name is required" })}
-                  type="text"
-                  placeholder="Your Name"
-                  disabled={isSubmitting}
-                  className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
-                )}
-              </motion.div>
+          <motion.div variants={itemVariants} className="flex flex-col items-center justify-center">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Ready to Start a Project?</h3>
+              <p className="text-slate-600 dark:text-slate-400 mb-8">
+                Click the button below to send me a message and let's discuss your ideas!
+              </p>
               
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <input
-                  {...register("email", { 
-                    required: "Email is required",
-                    pattern: {
-                      value: /^\S+@\S+$/i,
-                      message: "Invalid email address"
-                    }
-                  })}
-                  type="email"
-                  placeholder="Your Email"
-                  disabled={isSubmitting}
-                  className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
-                {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                )}
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <textarea
-                  {...register("message", { required: "Message is required" })}
-                  rows={6}
-                  placeholder="Your Message"
-                  disabled={isSubmitting}
-                  className="w-full bg-white dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 resize-none disabled:opacity-50"
-                />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
-                )}
-              </motion.div>
-              
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </motion.button>
-            </motion.form>
+              <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogTrigger asChild>
+                  <motion.button
+                    className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Send Message
+                  </motion.button>
+                </DialogTrigger>
+                
+                <DialogContent className="sm:max-w-[500px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-white text-center">
+                      Send Me a Message
+                    </DialogTitle>
+                  </DialogHeader>
+                  
+                  <motion.form 
+                    onSubmit={handleSubmit(onSubmit)} 
+                    className="space-y-6 mt-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      <input
+                        {...register("name", { required: "Name is required" })}
+                        type="text"
+                        placeholder="Your Name"
+                        disabled={isSubmitting}
+                        className="w-full bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 disabled:opacity-50"
+                      />
+                      {errors.name && (
+                        <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                      )}
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <input
+                        {...register("email", { 
+                          required: "Email is required",
+                          pattern: {
+                            value: /^\S+@\S+$/i,
+                            message: "Invalid email address"
+                          }
+                        })}
+                        type="email"
+                        placeholder="Your Email"
+                        disabled={isSubmitting}
+                        className="w-full bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 disabled:opacity-50"
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                      )}
+                    </motion.div>
+                    
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <textarea
+                        {...register("message", { required: "Message is required" })}
+                        rows={4}
+                        placeholder="Your Message"
+                        disabled={isSubmitting}
+                        className="w-full bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 resize-none disabled:opacity-50"
+                      />
+                      {errors.message && (
+                        <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>
+                      )}
+                    </motion.div>
+                    
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
+                      whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center justify-center">
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                          Sending...
+                        </div>
+                      ) : (
+                        'Send Message'
+                      )}
+                    </motion.button>
+                  </motion.form>
+                </DialogContent>
+              </Dialog>
+            </div>
           </motion.div>
         </motion.div>
       </div>

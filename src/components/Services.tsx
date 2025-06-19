@@ -40,7 +40,9 @@ const Services = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.1,
+        duration: 0.6,
+        ease: [0.4, 0, 0.2, 1]
       }
     }
   };
@@ -57,7 +59,7 @@ const Services = () => {
       scale: 1,
       transition: { 
         duration: 0.5,
-        ease: "easeOut"
+        ease: [0.4, 0, 0.2, 1]
       }
     }
   };

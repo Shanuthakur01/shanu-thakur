@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
 
 const Skills = () => {
   const skillCategories = [
@@ -40,8 +40,6 @@ const Skills = () => {
     { skill: 'Mobile', level: 65 },
   ];
 
-  const COLORS = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#8b5cf6'];
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -58,7 +56,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300">
+    <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300 relative z-10">
       <div className="container mx-auto px-6">
         <motion.div 
           className="text-center mb-16"
@@ -89,7 +87,7 @@ const Skills = () => {
                   key={index} 
                   className="bg-white dark:bg-slate-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                   variants={itemVariants}
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
                 >
                   <h4 className="text-lg font-semibold text-red-500 dark:text-red-400 mb-4">{category.category}</h4>
                   <div className="flex flex-wrap gap-2">
@@ -124,74 +122,78 @@ const Skills = () => {
             <motion.div 
               className="bg-white dark:bg-slate-700 rounded-lg p-6 mb-8 shadow-lg"
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
             >
               <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Skills Progress</h4>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={skillLevels}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-                  <XAxis 
-                    dataKey="name" 
-                    tick={{ fill: '#6b7280', fontSize: 12 }}
-                    angle={-45}
-                    textAnchor="end"
-                    height={80}
-                  />
-                  <YAxis tick={{ fill: '#6b7280' }} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#1e293b', 
-                      border: '1px solid #ef4444',
-                      borderRadius: '8px',
-                      color: '#fff'
-                    }}
-                  />
-                  <Bar dataKey="level" fill="#ef4444" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={skillLevels}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
+                    <XAxis 
+                      dataKey="name" 
+                      tick={{ fill: '#6b7280', fontSize: 12 }}
+                      angle={-45}
+                      textAnchor="end"
+                      height={80}
+                    />
+                    <YAxis tick={{ fill: '#6b7280' }} />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #ef4444',
+                        borderRadius: '8px',
+                        color: '#fff'
+                      }}
+                    />
+                    <Bar dataKey="level" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </motion.div>
 
             {/* Radar Chart */}
             <motion.div 
               className="bg-white dark:bg-slate-700 rounded-lg p-6 mb-8 shadow-lg"
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
             >
               <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Skills Radar</h4>
-              <ResponsiveContainer width="100%" height={300}>
-                <RadarChart data={radarData}>
-                  <PolarGrid />
-                  <PolarAngleAxis tick={{ fill: '#6b7280', fontSize: 12 }} />
-                  <PolarRadiusAxis 
-                    angle={90} 
-                    domain={[0, 100]} 
-                    tick={{ fill: '#6b7280', fontSize: 10 }}
-                  />
-                  <Radar 
-                    name="Skills" 
-                    dataKey="level" 
-                    stroke="#ef4444" 
-                    fill="#ef4444" 
-                    fillOpacity={0.3}
-                    strokeWidth={2}
-                  />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: '#1e293b', 
-                      border: '1px solid #ef4444',
-                      borderRadius: '8px',
-                      color: '#fff'
-                    }}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart data={radarData}>
+                    <PolarGrid />
+                    <PolarAngleAxis tick={{ fill: '#6b7280', fontSize: 12 }} />
+                    <PolarRadiusAxis 
+                      angle={90} 
+                      domain={[0, 100]} 
+                      tick={{ fill: '#6b7280', fontSize: 10 }}
+                    />
+                    <Radar 
+                      name="Skills" 
+                      dataKey="level" 
+                      stroke="#ef4444" 
+                      fill="#ef4444" 
+                      fillOpacity={0.3}
+                      strokeWidth={2}
+                    />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #ef4444',
+                        borderRadius: '8px',
+                        color: '#fff'
+                      }}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
             </motion.div>
 
             {/* Currently Learning */}
             <motion.div 
               className="p-6 bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-700 dark:to-slate-600 rounded-lg shadow-lg"
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.02, y: -2 }}
             >
               <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Currently Learning</h4>
               <div className="flex flex-wrap gap-2">
