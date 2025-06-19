@@ -70,10 +70,10 @@ const Portfolio = () => {
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+    <section id="portfolio" className="py-16 bg-white dark:bg-slate-900 transition-colors duration-300">
       <div className="container mx-auto px-6">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -101,9 +101,9 @@ const Portfolio = () => {
               className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
               variants={cardVariants}
               whileHover={{ 
-                scale: 1.05,
-                rotateY: 5,
-                rotateX: 5
+                scale: 1.03,
+                rotateY: 2,
+                rotateX: 2
               }}
               style={{ 
                 transformStyle: "preserve-3d",
@@ -115,20 +115,20 @@ const Portfolio = () => {
                 <img 
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                   <div className="flex gap-4">
                     <motion.a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-colors"
-                      whileHover={{ scale: 1.1 }}
+                      className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300"
+                      whileHover={{ scale: 1.15, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Github size={20} />
@@ -137,8 +137,8 @@ const Portfolio = () => {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-red-500/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-600/80 transition-colors"
-                      whileHover={{ scale: 1.1 }}
+                      className="bg-red-500/80 backdrop-blur-sm text-white p-3 rounded-full hover:bg-red-600/80 transition-all duration-300"
+                      whileHover={{ scale: 1.15, rotate: -5 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <ExternalLink size={20} />
@@ -149,7 +149,7 @@ const Portfolio = () => {
 
               {/* Project Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-red-500 transition-colors">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-red-500 transition-colors duration-300">
                   {project.title}
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">
@@ -161,7 +161,7 @@ const Portfolio = () => {
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-md text-xs font-medium"
+                      className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-md text-xs font-medium transition-colors duration-300"
                     >
                       {tech}
                     </span>
@@ -174,8 +174,8 @@ const Portfolio = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white text-center py-2 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-                    whileHover={{ scale: 1.02 }}
+                    className="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white text-center py-2 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-all duration-300"
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     View Code
@@ -184,8 +184,8 @@ const Portfolio = () => {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-red-500 text-white text-center py-2 rounded-lg font-medium hover:bg-red-600 transition-colors"
-                    whileHover={{ scale: 1.02 }}
+                    className="flex-1 bg-red-500 text-white text-center py-2 rounded-lg font-medium hover:bg-red-600 transition-all duration-300"
+                    whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Live Demo
