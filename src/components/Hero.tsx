@@ -167,7 +167,7 @@ const Hero = () => {
                 <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 p-1">
                   <div className="w-full h-full rounded-2xl bg-slate-800 flex items-center justify-center overflow-hidden">
                     <img 
-                      src="https://i.postimg.cc/wjg99cVz/Whats-App-Image-2025-02-08-at-00-31-28-18f8e700.jpg"
+                      src="https://i.postimg.cc/br4vLsk4/Screenshot-2025-06-20-152148.png"
                       alt="Shanu Thakur"
                       className="w-full h-full object-cover rounded-2xl"
                       loading="lazy"
