@@ -42,7 +42,7 @@ const Services = () => {
       transition: {
         staggerChildren: 0.1,
         duration: 0.6,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeOut"
       }
     }
   };
@@ -59,13 +59,13 @@ const Services = () => {
       scale: 1,
       transition: { 
         duration: 0.5,
-        ease: [0.4, 0, 0.2, 1]
+        ease: "easeOut"
       }
     }
   };
 
   return (
-    <section id="services" className="py-16 bg-slate-900 transition-all duration-300">
+    <section id="services" className="py-12 bg-slate-900 transition-all duration-300">
       <div className="container mx-auto px-6">
         <motion.div 
           className="text-center mb-12"

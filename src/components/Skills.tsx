@@ -1,43 +1,33 @@
 
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import SkillsCharts from './SkillsCharts';
 
 const Skills = () => {
   const skillCategories = [
     {
       category: "Languages & Frameworks",
       skills: ["HTML", "CSS", "JavaScript", "Bootstrap", "React.js", "Node.js"],
+      icon: "💻",
+      gradient: "from-blue-500 to-cyan-500"
     },
     {
       category: "Back-End & Database",
       skills: ["RESTful APIs", "MongoDB", "Express.js", "JWT Authentication"],
+      icon: "🗄️",
+      gradient: "from-green-500 to-emerald-500"
     },
     {
       category: "Tools & Platforms",
       skills: ["Git", "GitHub", "VS Code", "AWS", "Postman", "NPM"],
+      icon: "🛠️",
+      gradient: "from-orange-500 to-red-500"
     },
     {
       category: "Concepts",
       skills: ["UI/UX Design", "DSA (Arrays, Trees, Graphs)", "Encryption", "Debugging"],
+      icon: "🧠",
+      gradient: "from-purple-500 to-pink-500"
     },
-  ];
-
-  const skillLevels = [
-    { name: "JavaScript", level: 90 },
-    { name: "React.js", level: 85 },
-    { name: "Node.js", level: 80 },
-    { name: "MongoDB", level: 75 },
-    { name: "AWS", level: 70 },
-    { name: "UI/UX", level: 75 },
-  ];
-
-  const radarData = [
-    { skill: 'Frontend', level: 90 },
-    { skill: 'Backend', level: 80 },
-    { skill: 'Database', level: 75 },
-    { skill: 'DevOps', level: 70 },
-    { skill: 'UI/UX', level: 75 },
-    { skill: 'Mobile', level: 65 },
   ];
 
   const containerVariants = {
@@ -56,8 +46,14 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300 relative z-10">
-      <div className="container mx-auto px-6">
+    <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300 relative z-10 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -65,37 +61,65 @@ const Skills = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">Skills & Expertise</h2>
-          <div className="w-24 h-1 bg-red-500 mx-auto mb-6"></div>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-2xl">
+              🚀
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-600 to-purple-600 dark:from-white dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              Skills & Expertise
+            </h2>
+          </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6 rounded-full"></div>
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-3xl mx-auto">
-            A comprehensive overview of my technical expertise and proficiencies
+            A comprehensive overview of my technical expertise and proficiencies with interactive visualizations
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 mb-16">
           {/* Skill Categories */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Technical Skills</h3>
-            <div className="space-y-6">
-              {skillCategories.map((category, index) => (
-                <motion.div 
-                  key={index} 
-                  className="bg-white dark:bg-slate-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                >
-                  <h4 className="text-lg font-semibold text-red-500 dark:text-red-400 mb-4">{category.category}</h4>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-gradient-to-r from-slate-600 to-slate-800 rounded-lg flex items-center justify-center">
+                💼
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Technical Skills</h3>
+            </div>
+            
+            {skillCategories.map((category, index) => (
+              <motion.div 
+                key={index} 
+                className="group bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-600 hover:border-transparent relative overflow-hidden"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02, y: -5 }}
+              >
+                {/* Gradient border effect */}
+                <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`} 
+                     style={{ padding: '2px' }}>
+                  <div className="bg-white dark:bg-slate-700 h-full w-full rounded-xl"></div>
+                </div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 bg-gradient-to-r ${category.gradient} rounded-lg flex items-center justify-center text-xl shadow-lg`}>
+                      {category.icon}
+                    </div>
+                    <h4 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text transition-all duration-300"
+                        style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))` }}>
+                      {category.category}
+                    </h4>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill, skillIndex) => (
                       <motion.span
                         key={skillIndex}
-                        className="bg-slate-100 dark:bg-slate-600 text-slate-700 dark:text-slate-200 px-3 py-1 rounded-full text-sm font-medium hover:bg-red-500 hover:text-white transition-colors duration-300 cursor-default"
-                        whileHover={{ scale: 1.05 }}
+                        className="bg-slate-100 dark:bg-slate-600 text-slate-700 dark:text-slate-200 px-3 py-2 rounded-lg text-sm font-medium hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300 cursor-default shadow-sm"
+                        whileHover={{ scale: 1.05, y: -2 }}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: skillIndex * 0.05 }}
@@ -104,115 +128,79 @@ const Skills = () => {
                       </motion.span>
                     ))}
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
-          {/* Interactive Charts */}
+          {/* Currently Learning Section */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Proficiency Levels</h3>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                📚
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Currently Learning</h3>
+            </div>
             
-            {/* Bar Chart */}
             <motion.div 
-              className="bg-white dark:bg-slate-700 rounded-lg p-6 mb-8 shadow-lg"
+              className="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700 rounded-xl p-8 shadow-xl border border-yellow-200 dark:border-orange-500/20 relative overflow-hidden"
               variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -2 }}
+              whileHover={{ scale: 1.02, y: -5 }}
             >
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Skills Progress</h4>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={skillLevels}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-                    <XAxis 
-                      dataKey="name" 
-                      tick={{ fill: '#6b7280', fontSize: 12 }}
-                      angle={-45}
-                      textAnchor="end"
-                      height={80}
-                    />
-                    <YAxis tick={{ fill: '#6b7280' }} />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: '#1e293b', 
-                        border: '1px solid #ef4444',
-                        borderRadius: '8px',
-                        color: '#fff'
-                      }}
-                    />
-                    <Bar dataKey="level" fill="#ef4444" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </motion.div>
-
-            {/* Radar Chart */}
-            <motion.div 
-              className="bg-white dark:bg-slate-700 rounded-lg p-6 mb-8 shadow-lg"
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -2 }}
-            >
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Skills Radar</h4>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={radarData}>
-                    <PolarGrid />
-                    <PolarAngleAxis tick={{ fill: '#6b7280', fontSize: 12 }} />
-                    <PolarRadiusAxis 
-                      angle={90} 
-                      domain={[0, 100]} 
-                      tick={{ fill: '#6b7280', fontSize: 10 }}
-                    />
-                    <Radar 
-                      name="Skills" 
-                      dataKey="level" 
-                      stroke="#ef4444" 
-                      fill="#ef4444" 
-                      fillOpacity={0.3}
-                      strokeWidth={2}
-                    />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: '#1e293b', 
-                        border: '1px solid #ef4444',
-                        borderRadius: '8px',
-                        color: '#fff'
-                      }}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
-              </div>
-            </motion.div>
-
-            {/* Currently Learning */}
-            <motion.div 
-              className="p-6 bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-700 dark:to-slate-600 rounded-lg shadow-lg"
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -2 }}
-            >
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Currently Learning</h4>
-              <div className="flex flex-wrap gap-2">
-                {["TypeScript", "Next.js", "Docker", "GraphQL"].map((tech, index) => (
-                  <motion.span
-                    key={index}
-                    className="bg-gradient-to-r from-yellow-400 to-orange-500 text-slate-900 px-3 py-1 rounded-full text-sm font-medium shadow-md"
-                    whileHover={{ scale: 1.05 }}
-                    initial={{ opacity: 0, rotate: -10 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    transition={{ delay: index * 0.1 }}
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <motion.div 
+                    className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-2xl shadow-lg"
+                    animate={{ rotate: [0, 5, -5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
                   >
-                    {tech}
-                  </motion.span>
-                ))}
+                    🎯
+                  </motion.div>
+                  <h4 className="text-xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+                    Expanding My Skillset
+                  </h4>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-3">
+                  {["TypeScript", "Next.js", "Docker", "GraphQL", "Python", "Kubernetes"].map((tech, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm text-slate-800 dark:text-slate-200 px-4 py-3 rounded-lg text-sm font-medium shadow-lg border border-yellow-200 dark:border-orange-500/20 hover:shadow-xl transition-all duration-300"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      initial={{ opacity: 0, rotate: -10, scale: 0.8 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse"></div>
+                        {tech}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </motion.div>
         </div>
+
+        {/* Interactive Charts Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <SkillsCharts />
+        </motion.div>
       </div>
     </section>
   );
