@@ -61,7 +61,7 @@ const Portfolio = () => {
       transition: {
         staggerChildren: 0.2,
         duration: 0.6,
-        ease: [0.16, 1, 0.3, 1]
+        ease: "easeOut"
       }
     }
   };
@@ -74,7 +74,7 @@ const Portfolio = () => {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: [0.16, 1, 0.3, 1]
+        ease: "easeOut"
       }
     }
   };
