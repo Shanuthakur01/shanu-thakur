@@ -1,6 +1,6 @@
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
 interface SilkProps {
@@ -28,12 +28,12 @@ const Silk: React.FC<SilkProps> = ({
     }
   `;
 
+  // Simplified fragment shader for better performance
   const fragmentShader = `
     uniform float uTime;
     uniform float uSpeed;
     uniform float uScale;
     uniform float uNoise;
-    uniform float uRotation;
     uniform vec3 uBackgroundColor;
     varying vec2 vUv;
 
@@ -52,77 +52,35 @@ const Silk: React.FC<SilkProps> = ({
       return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
     }
 
-    float fbm(vec2 st) {
-      float value = 0.0;
-      float amplitude = 0.5;
-      float frequency = 1.0;
-      for(int i = 0; i < 6; i++) {
-        value += amplitude * noise(st * frequency);
-        frequency *= 2.0;
-        amplitude *= 0.5;
-      }
-      return value;
-    }
-
     void main() {
       vec2 st = vUv * uScale;
-      
-      // Apply rotation
-      float cosR = cos(uRotation);
-      float sinR = sin(uRotation);
-      mat2 rotMatrix = mat2(cosR, -sinR, sinR, cosR);
-      st = rotMatrix * (st - 0.5) + 0.5;
-      
       float time = uTime * uSpeed;
       
-      // Create flowing silk pattern
-      vec2 flow1 = vec2(
-        fbm(st + vec2(time * 0.1, time * 0.05)),
-        fbm(st + vec2(time * 0.05, time * 0.1))
-      );
-      
-      vec2 flow2 = vec2(
-        fbm(st + flow1 + vec2(time * 0.08, -time * 0.06)),
-        fbm(st + flow1 + vec2(-time * 0.06, time * 0.08))
-      );
-      
-      float pattern = fbm(st + flow2 * uNoise);
-      
-      // Create silk-like undulation
-      float wave1 = sin(st.x * 10.0 + time) * 0.1;
-      float wave2 = cos(st.y * 8.0 + time * 0.8) * 0.1;
-      pattern += wave1 + wave2;
-      
-      // Smooth the pattern
-      pattern = smoothstep(0.0, 1.0, pattern);
+      // Simplified pattern
+      float pattern = noise(st + time * 0.1);
+      pattern += noise(st * 2.0 + time * 0.05) * 0.5;
       
       // Create gradient effect
-      vec3 color1 = uBackgroundColor * 0.6;
-      vec3 color2 = uBackgroundColor * 1.2;
-      vec3 color3 = uBackgroundColor * 0.8;
+      vec3 color1 = uBackgroundColor * 0.8;
+      vec3 color2 = uBackgroundColor * 1.1;
       
       vec3 finalColor = mix(color1, color2, pattern);
-      finalColor = mix(finalColor, color3, sin(pattern * 3.14159) * 0.5 + 0.5);
       
-      // Add subtle transparency based on pattern
-      float alpha = 0.7 + pattern * 0.3;
-      
-      gl_FragColor = vec4(finalColor, alpha);
+      gl_FragColor = vec4(finalColor, 0.3);
     }
   `;
 
-  const uniforms = useRef({
+  const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uSpeed: { value: speed },
     uScale: { value: scale },
     uNoise: { value: noise },
-    uRotation: { value: rotation },
     uBackgroundColor: { value: new THREE.Color(backgroundColor) }
-  });
+  }), [speed, scale, noise, backgroundColor]);
 
   useFrame((state) => {
     if (meshRef.current) {
-      uniforms.current.uTime.value = state.clock.elapsedTime;
+      uniforms.uTime.value = state.clock.elapsedTime;
     }
   });
 
@@ -132,7 +90,7 @@ const Silk: React.FC<SilkProps> = ({
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
-        uniforms={uniforms.current}
+        uniforms={uniforms}
         transparent
         side={THREE.DoubleSide}
       />
@@ -150,19 +108,21 @@ interface SilkShaderProps {
 }
 
 const SilkShader: React.FC<SilkShaderProps> = ({
-  speed = 0.2,
-  scale = 1.0,
-  noise = 4.0,
+  speed = 0.15,
+  scale = 1.5,
+  noise = 2.0,
   rotation = 0.0,
-  backgroundColor = '#7B7481',
+  backgroundColor = '#64748b',
   className = ''
 }) => {
   return (
     <div className={`absolute inset-0 ${className}`}>
       <Canvas
-        dpr={[1, 2]}
+        dpr={[0.5, 1]}
         camera={{ position: [0, 0, 1], fov: 75 }}
         style={{ background: 'transparent' }}
+        performance={{ min: 0.5 }}
+        frameloop="demand"
       >
         <Silk 
           speed={speed}

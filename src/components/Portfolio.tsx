@@ -61,7 +61,7 @@ const Portfolio = () => {
       transition: {
         staggerChildren: 0.2,
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
@@ -74,17 +74,17 @@ const Portfolio = () => {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
 
   return (
     <section id="portfolio" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-      {/* Background Effects */}
+      {/* Simplified background effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/3 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/3 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -145,15 +145,15 @@ const Portfolio = () => {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="group bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-700"
-              whileHover={{ y: -10, scale: 1.02 }}
+              className="group bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
+              whileHover={{ y: -5, scale: 1.02 }}
             >
               {/* Project Image */}
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 

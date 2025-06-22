@@ -40,7 +40,7 @@ const Services = () => {
       transition: {
         staggerChildren: 0.2,
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
@@ -53,17 +53,17 @@ const Services = () => {
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };
 
   return (
     <section id="services" className="py-20 bg-slate-50 dark:bg-slate-800 transition-colors duration-300 relative overflow-hidden">
-      {/* Background Effects */}
+      {/* Simplified background effects */}
       <div className="absolute inset-0">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -101,22 +101,21 @@ const Services = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group bg-white/80 dark:bg-slate-700/80 backdrop-blur-sm rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-600 hover:border-transparent relative overflow-hidden"
-              whileHover={{ scale: 1.05, y: -10 }}
+              className="group bg-white/80 dark:bg-slate-700/80 backdrop-blur-sm rounded-xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-600 hover:border-transparent relative overflow-hidden"
+              whileHover={{ scale: 1.02, y: -5 }}
             >
-              {/* Gradient overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-xl`}></div>
+              {/* Simplified gradient overlay */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-xl`}></div>
               
               {/* Content */}
               <div className="relative z-10">
                 {/* Icon */}
-                <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-xl flex items-center justify-center text-3xl mb-6 shadow-lg group-hover:scale-105 transition-transform duration-200`}>
                   {service.icon}
                 </div>
 
                 {/* Title */}
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text transition-all duration-300"
-                    style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))` }}>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   {service.title}
                 </h3>
 
@@ -132,28 +131,16 @@ const Services = () => {
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
                     {service.features.map((feature, featureIndex) => (
-                      <motion.div
+                      <div
                         key={featureIndex}
                         className="flex items-center gap-2 text-sm"
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: featureIndex * 0.1 }}
                       >
                         <div className={`w-2 h-2 bg-gradient-to-r ${service.gradient} rounded-full`}></div>
                         <span className="text-slate-600 dark:text-slate-400">{feature}</span>
-                      </motion.div>
+                      </div>
                     ))}
                   </div>
                 </div>
-
-                {/* CTA Button */}
-                <motion.button
-                  className={`mt-6 w-full bg-gradient-to-r ${service.gradient} text-white py-3 px-6 rounded-lg font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:shadow-lg`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Learn More
-                </motion.button>
               </div>
             </motion.div>
           ))}
