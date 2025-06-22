@@ -61,7 +61,7 @@ const Index = () => {
       scale: 1,
       transition: { 
         duration: 0.8,
-        ease: "easeOut"
+        ease: [0.16, 1, 0.3, 1]
       }
     }
   };

@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import SkillsCharts from './SkillsCharts';
+import SilkShader from './SilkShader';
 
 const Skills = () => {
   const skillCategories = [
@@ -47,6 +48,16 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-20 bg-slate-50 dark:bg-slate-800 transform-gpu transition-colors duration-300 relative z-10 overflow-hidden">
+      {/* Silk Shader Background */}
+      <SilkShader 
+        speed={0.15}
+        scale={2.0}
+        noise={3.5}
+        rotation={0.1}
+        backgroundColor="#64748b"
+        className="opacity-20 dark:opacity-30"
+      />
+      
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
@@ -94,14 +105,14 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <motion.div 
                 key={index} 
-                className="group bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-600 hover:border-transparent relative overflow-hidden"
+                className="group bg-white/80 dark:bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-600 hover:border-transparent relative overflow-hidden"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02, y: -5 }}
               >
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl`} 
                      style={{ padding: '2px' }}>
-                  <div className="bg-white dark:bg-slate-700 h-full w-full rounded-xl"></div>
+                  <div className="bg-white/90 dark:bg-slate-700/90 h-full w-full rounded-xl"></div>
                 </div>
                 
                 <div className="relative z-10">
@@ -149,7 +160,7 @@ const Skills = () => {
             </div>
             
             <motion.div 
-              className="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700 rounded-xl p-8 shadow-xl border border-yellow-200 dark:border-orange-500/20 relative overflow-hidden"
+              className="bg-gradient-to-br from-yellow-50/90 via-orange-50/90 to-red-50/90 dark:from-slate-700/80 dark:via-slate-600/80 dark:to-slate-700/80 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-yellow-200 dark:border-orange-500/20 relative overflow-hidden"
               variants={itemVariants}
               whileHover={{ scale: 1.02, y: -5 }}
             >
