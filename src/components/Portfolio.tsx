@@ -1,121 +1,90 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Eye, Code, Smartphone, Globe } from 'lucide-react';
 
 const Portfolio = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-
+  const [filter, setFilter] = useState('all');
+  
   const projects = [
     {
       id: 1,
       title: "E-Commerce Platform",
-      description: "A modern e-commerce platform built with React, Node.js, and MongoDB featuring user authentication, payment integration, and admin dashboard.",
-      image: "https://i.postimg.cc/QtFHBWZH/ecommerce-placeholder.jpg",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       category: "web",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-blue-500 to-cyan-500"
+      image: "/placeholder.svg",
+      description: "A full-stack e-commerce solution built with React, Node.js, and MongoDB.",
+      technologies: ["React", "Node.js", "MongoDB", "Express"],
+      github: "https://github.com",
+      live: "https://demo.com"
     },
     {
       id: 2,
       title: "Task Management App",
-      description: "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      image: "https://i.postimg.cc/XJK1MR7M/task-app-placeholder.jpg",
-      technologies: ["React", "Socket.io", "Express", "PostgreSQL"],
       category: "web",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-purple-500 to-pink-500"
+      image: "/placeholder.svg",
+      description: "A collaborative task management application with real-time updates.",
+      technologies: ["React", "Socket.io", "JWT", "CSS3"],
+      github: "https://github.com",
+      live: "https://demo.com"
     },
     {
       id: 3,
-      title: "Weather Mobile App",
-      description: "Cross-platform weather application with location services, weather forecasts, and beautiful animated interfaces built with React Native.",
-      image: "https://i.postimg.cc/3JKM7qQx/weather-app-placeholder.jpg",
-      technologies: ["React Native", "Weather API", "Redux"],
-      category: "mobile",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-green-500 to-emerald-500"
+      title: "Weather Dashboard",
+      category: "web",
+      image: "/placeholder.svg",
+      description: "A responsive weather dashboard with location-based forecasts.",
+      technologies: ["JavaScript", "API Integration", "Bootstrap", "Charts.js"],
+      github: "https://github.com",
+      live: "https://demo.com"
     },
     {
       id: 4,
       title: "Portfolio Website",
-      description: "A responsive portfolio website showcasing modern design principles, smooth animations, and optimized performance.",
-      image: "https://i.postimg.cc/RZR1QP51/portfolio-placeholder.jpg",
-      technologies: ["React", "Tailwind CSS", "Framer Motion"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-orange-500 to-red-500"
-    },
-    {
-      id: 5,
-      title: "Fitness Tracker",
-      description: "Mobile fitness tracking application with workout planning, progress tracking, and social features for fitness enthusiasts.",
-      image: "https://i.postimg.cc/Y0JY8YXn/fitness-app-placeholder.jpg",
-      technologies: ["React Native", "Firebase", "Charts.js"],
-      category: "mobile",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-indigo-500 to-purple-500"
-    },
-    {
-      id: 6,
-      title: "Blog Platform",
-      description: "A full-featured blog platform with content management, user authentication, commenting system, and SEO optimization.",
-      image: "https://i.postimg.cc/QCxGRXj2/blog-placeholder.jpg",
-      technologies: ["Next.js", "Prisma", "PostgreSQL", "Tailwind"],
-      category: "web",
-      liveUrl: "#",
-      githubUrl: "#",
-      gradient: "from-yellow-500 to-orange-500"
+      category: "design",
+      image: "/placeholder.svg",
+      description: "A modern portfolio website showcasing creative design and development skills.",
+      technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"],
+      github: "https://github.com",
+      live: "https://demo.com"
     }
   ];
 
-  const filters = [
-    { id: 'all', label: 'All Projects', icon: Globe },
-    { id: 'web', label: 'Web Apps', icon: Code },
-    { id: 'mobile', label: 'Mobile Apps', icon: Smartphone }
-  ];
-
-  const filteredProjects = activeFilter === 'all' 
+  const categories = ['all', 'web', 'mobile', 'design'];
+  
+  const filteredProjects = filter === 'all' 
     ? projects 
-    : projects.filter(project => project.category === activeFilter);
+    : projects.filter(project => project.category === filter);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.2,
         duration: 0.6,
-        ease: [0.16, 1, 0.3, 1]
+        ease: "easeOut"
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    hidden: { opacity: 0, y: 30, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: { 
-        duration: 0.6, 
-        ease: [0.16, 1, 0.3, 1]
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
       }
     }
   };
 
   return (
-    <section id="portfolio" className="py-20 bg-slate-50 dark:bg-slate-800 relative overflow-hidden">
-      {/* Background Elements */}
+    <section id="portfolio" className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+      {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -137,7 +106,7 @@ const Portfolio = () => {
           </div>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-6 rounded-full"></div>
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-3xl mx-auto">
-            A showcase of my recent projects demonstrating modern web and mobile development skills
+            A showcase of my recent projects and creative solutions
           </p>
         </motion.div>
 
@@ -147,146 +116,119 @@ const Portfolio = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {filters.map((filter) => (
-            <motion.button
-              key={filter.id}
-              onClick={() => setActiveFilter(filter.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                activeFilter === filter.id
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setFilter(category)}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                filter === category
                   ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                  : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-purple-500 border border-slate-200 dark:border-slate-600'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
               }`}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
             >
-              <filter.icon className="w-4 h-4" />
-              {filter.label}
-            </motion.button>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
           ))}
         </motion.div>
 
         {/* Projects Grid */}
         <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-2 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          key={activeFilter}
+          viewport={{ once: true }}
         >
           {filteredProjects.map((project) => (
             <motion.div
               key={project.id}
-              className="group bg-white dark:bg-slate-700 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-600"
               variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              layout
+              className="group bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-700"
+              whileHover={{ y: -10, scale: 1.02 }}
             >
               {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={project.image} 
+              <div className="relative overflow-hidden">
+                <img
+                  src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center`}>
-                  <div className="flex gap-4">
-                    <motion.a
-                      href={project.liveUrl}
-                      className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Eye className="w-5 h-5" />
-                    </motion.a>
-                    <motion.a
-                      href={project.githubUrl}
-                      className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200"
-                      whileHover={{ scale: 1.1, rotate: -5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Github className="w-5 h-5" />
-                    </motion.a>
-                  </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Action Buttons */}
+                <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-colors duration-200"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+                    </svg>
+                  </a>
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/30 transition-colors duration-200"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
                 </div>
               </div>
 
-              {/* Project Content */}
+              {/* Project Info */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-purple-500 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 line-clamp-3">
+                <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
                   {project.description}
                 </p>
                 
                 {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="bg-slate-100 dark:bg-slate-600 text-slate-700 dark:text-slate-200 px-3 py-1 rounded-lg text-xs font-medium"
+                      className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full text-xs font-medium"
                     >
                       {tech}
                     </span>
                   ))}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  <motion.a
-                    href={project.liveUrl}
-                    className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300"
-                    whileHover={{ scale: 1.02, y: -1 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Live Demo
-                  </motion.a>
-                  <motion.a
-                    href={project.githubUrl}
-                    className="flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200 py-2 px-4 rounded-lg text-sm font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all duration-300"
-                    whileHover={{ scale: 1.02, y: -1 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Github className="w-4 h-4" />
-                    Code
-                  </motion.a>
                 </div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Load More Section */}
+        {/* Call to Action */}
         <motion.div 
           className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-8 shadow-xl border border-purple-200/50 dark:border-slate-600/50">
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
-              Want to See More?
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-2xl mx-auto">
-              These are just a few highlights from my portfolio. Check out my GitHub for more projects and contributions.
-            </p>
-            <motion.a
-              href="https://github.com/Shanuthakur01"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Github className="w-5 h-5" />
-              <span>View GitHub</span>
-            </motion.a>
-          </div>
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
+            Want to see more of my work?
+          </p>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+            </svg>
+            View More on GitHub
+          </a>
         </motion.div>
       </div>
     </section>
